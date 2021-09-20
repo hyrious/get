@@ -1,0 +1,16 @@
+{
+  "private": true,
+  "name": "@hyrious/get",
+  "version": "0.1.0",
+  "description": "retrieve any software's download page",
+  "repository": "hyrious/get",
+  "author": "hyrious <hyrious@outlook.com>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build"
+  },
+  "devDependencies": {
+    "vite": "^2.5.10"
+  }
+}

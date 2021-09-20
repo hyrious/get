@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="color-scheme" content="light dark">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/style.css">
+  <title>Get ...</title>
+</head>
+<body>
+
+  <main>
+    <h1>Get ...</h1>
+    <input type="search" placeholder="loading..." id="search" autofocus autocomplete="off" spellcheck="false">
+    <section id="result"></section>
+    <button id="more" class="link-btn" disabled>Load More</button>
+  </main>
+
+  <footer>
+    <p>MIT @ <a href="https://github.com/hyrious">hyrious</a></p>
+  </footer>
+
+  <template id="result-item-template">
+    <style>
+      .result-item {
+        cursor: auto;
+        background-color: rgba(127,127,127,.1);
+        padding: 5px 10px;
+      }
+      .result-item .src {
+        color: grey;
+        font-family: ui-monospace;
+      }
+    </style>
+    <p class="result-item">
+      <span>[<slot name="id">ID</slot>]</span>
+      <small><slot name="kw">Keywords</slot></small>
+      <small class="src">#<slot name="src">SRC</slot></small>
+      <slot name="url"><a href="https://example.org">URL</a></slot>
+    </p>
+  </template>
+
+  <script type="module" src="/main.ts"></script>
+</body>
+</html>
