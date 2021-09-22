@@ -38,10 +38,10 @@ async function refresh() {
   }
 
   let i = 0
-  const hint = $search.value.toLowerCase()
+  const hint = $search.value.toLowerCase().split(/\s+/)
   while (cursor < db.length && i < CHUNK) {
     let { id, kw, url, src } = db[cursor++]
-    if (kw.some(e => e.toLowerCase().includes(hint))) {
+    if (hint.some(k => kw.some(e => e.toLowerCase().includes(k)))) {
       let dom = document.createElement('result-item')
       dom.append(
         h('span', { slot: 'id', textContent: id }),
@@ -81,7 +81,7 @@ async function main() {
 
 main()
 
-if (import.meta.env.PROD)
+if (import.meta.env.DEV)
   navigator.serviceWorker?.getRegistrations().then(r => {
     r.forEach(e => e.unregister())
   })
