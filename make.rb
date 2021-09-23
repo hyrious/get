@@ -86,7 +86,7 @@ def scoop repo_url
         url = raw['homepage']
       when Hash
         url = raw['checkver']['url'] || raw['github'] || raw['homepage']
-        if %w( .json .yaml .yml .txt .atom ).any? { |e| url.end_with? e }
+        if %w( .json .yaml .yml .txt .atom .xml ).any? { |e| url.end_with? e }
           url = raw['homepage']
         end
       end
