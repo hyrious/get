@@ -100,9 +100,9 @@ def scoop repo_url
         kw.push(*raw['bin'].flatten.map { |e| File.basename(e.gsub('\\', '/'), '.*') })
       end
 
-      unless SEEN.key? id
-        SEEN[id] = true
-        DB.push({ id: id, kw: kw, url: url.force_encoding('utf-8'), src: 'scoop' })
+      unless SEEN.key? [:scoop, id]
+        SEEN[[:scoop, id]] = true
+        DB.push({ id: id, kw: kw.uniq, url: url.force_encoding('utf-8'), src: 'scoop' })
       end
     end
   end
@@ -118,8 +118,8 @@ def winget repo_url
       if raw_id and url
         id = raw_id.split(?.).pop
         kw = raw_id
-        unless SEEN.key? id
-          SEEN[id] = true
+        unless SEEN.key? [:winget, id]
+          SEEN[[:winget, id]] = true
           DB.push({ id: id, kw: [kw], url: url.force_encoding('utf-8'), src: 'winget' })
         end
       end

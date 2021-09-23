@@ -27,6 +27,12 @@ footer a {
   color: inherit;
 }
 
+.ctrl {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
 #search {
   display: block;
   width: 100%;

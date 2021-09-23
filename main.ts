@@ -5,6 +5,8 @@ let current = 0, maxsize = CHUNK;
 
 const $: typeof document.querySelector = (sel: string) => document.querySelector(sel)
 
+const $winget: HTMLInputElement = $('#winget')
+const $scoop: HTMLInputElement = $('#scoop')
 const $search: HTMLInputElement = $('#search')
 const $result = $('#result')
 const $template: HTMLTemplateElement = $('#result-item-template')
@@ -38,9 +40,12 @@ async function refresh() {
   }
 
   let i = 0
+  const winget = $winget.checked, scoop = $scoop.checked
   const hint = $search.value.toLowerCase().split(/\s+/)
   while (cursor < db.length && i < CHUNK) {
     let { id, kw, url, src } = db[cursor++]
+    if (src === "scoop" && !scoop) continue;
+    if (src === "winget" && !winget) continue;
     if (hint.some(k => kw.some(e => e.toLowerCase().includes(k)))) {
       let dom = document.createElement('result-item')
       dom.append(
@@ -69,14 +74,19 @@ function more() {
 }
 
 async function main() {
+  $search.disabled = true
+
   db = await fetch("db.json").then(r => r.json())
 
-  $search.placeholder = "type keywords here"
+  $search.disabled = false
+  $search.placeholder = "search here"
   $search.focus()
 
   $search.addEventListener('input', search)
 
   $more.addEventListener('click', more)
+  $winget.addEventListener('change', search)
+  $scoop.addEventListener('change', search)
 }
 
 main()
