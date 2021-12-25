@@ -78,7 +78,7 @@ def scoop repo_url
     name = file.full_name
     if (i = name.index '/bucket/') and (j = name.rindex '.json')
       id = file.full_name[(i + '/bucket/'.size)...j]
-      raw = JSON.parse file.read
+      raw = JSON.parse file.read.delete "\r"
 
       url = nil
       case raw['checkver']
