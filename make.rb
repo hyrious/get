@@ -111,10 +111,10 @@ end
 def winget repo_url
   untar fetch_tgz repo_url do |file|
     name = file.full_name
-    if name.include? '/manifests/' and name.end_with? '.yaml'
+    if name.include? '/manifests/' and name.include? '.locale.' and name.end_with? '.yaml'
       raw = file.read
       raw_id = raw.match(/PackageIdentifier:\s*(.+)/)&.[](1)&.chomp
-      url = raw.match(/PackageUrl:\s*(.*)/)&.[](1)&.chomp
+      url = raw.match(/^PackageUrl:\s*(.*)/)&.[](1)&.chomp
       if raw_id and url
         id = raw_id.split(?.).pop
         kw = raw_id
@@ -128,7 +128,7 @@ def winget repo_url
 end
 
 scoop 'https://github.com/ScoopInstaller/Main'
-scoop 'https://github.com/lukesampson/scoop-extras'
+scoop 'https://github.com/ScoopInstaller/Extras'
 winget 'https://github.com/microsoft/winget-pkgs'
 
 Dir.mkdir 'public' unless Dir.exist? 'public'
